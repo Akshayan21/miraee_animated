@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --font-body: Inter, "Segoe UI", Arial, sans-serif;
+
+  /* Miraee brand tokens */
+  --color-brand-dark: #450e14;
+  --color-brand: #e55602;
+  --color-brand-strong: #c74400;
+
+  --color-text: #0f0407;
+  --color-text-muted: #786c69;
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: rgba(69, 14, 20, 0.14);
+
+  --color-mi-cream: #f3f1ed;
+  --color-mi-orange: #f25c05;
+  --color-mi-amber: #ffbe4d;
+  --color-mi-amber-text: #ffbe4d;
+  --color-mi-rust: #de5533;
+  --color-mi-scarlet: #cc3600;
+  --color-mi-green: #00bf62;
+  --color-mi-green-text: #00bf62;
+  --color-mi-blue-text: #809bff;
+  --color-background-dark: #110e09;
+  --color-background-deep: #0f0407;
+
+  /* Existing selectors in this file key off these names — repointing them to
+     the brand tokens repaints the whole page without rewriting every rule. */
+  --ink: var(--color-text);
+  --muted: var(--color-text-muted);
+  --paper: var(--color-mi-cream);
+  --surface: var(--color-surface);
+  --purple: var(--color-brand);
+  --purple-dark: var(--color-brand-dark);
+  --lavender: color-mix(in srgb, var(--color-brand) 16%, white);
+  --line: var(--color-border);
+  --success: var(--color-mi-green);
+
+  /* Radius scale: content surfaces pick one of these instead of a one-off
+     value, so nested cards read as one system rather than each inventing
+     its own roundness. Device chrome (phone bezel) and true pills are
+     exempt — they aren't content containers. */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* Tailwind v4 reads theme tokens from CSS variables declared here, so the
+   brand palette above becomes real utilities: bg-brand, text-ink, font-display... */
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --color-brand: var(--color-brand);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-strong: var(--color-brand-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-lavender: var(--lavender);
+  --color-line: var(--line);
+  --color-success: var(--success);
+  --color-mi-cream: var(--color-mi-cream);
+  --color-mi-orange: var(--color-mi-orange);
+  --color-mi-amber: var(--color-mi-amber);
+  --color-mi-rust: var(--color-mi-rust);
+  --color-mi-scarlet: var(--color-mi-scarlet);
+  --color-mi-green: var(--color-mi-green);
+  --color-background-dark: var(--color-background-dark);
+  --color-background-deep: var(--color-background-deep);
+
+  --animate-waveform: waveform 0.7s ease-in-out infinite alternate;
+  --animate-message-in: message-in 0.45s ease both;
+  --animate-check-in: check-in 0.5s both;
+}
+
+@keyframes waveform { to { transform: scaleY(1.7); } }
+@keyframes message-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes check-in { from { opacity: 0; transform: translateX(-8px); } }
+
+/* Light-mode token overrides, matching the Miraee marketing palette. Applied
+   automatically if `.light` is ever added to <html> by a theme toggle. */
+.light {
+  --color-mi-amber-text: #8a5a00;
+  --color-mi-blue-text: #3355cc;
+  --color-mi-green-text: #0a7a3d;
+  --color-mi-cream: #150b08;
+  --color-background-dark: #fbf9f6;
+}
+
+html { scroll-behavior: auto; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body), sans-serif; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+

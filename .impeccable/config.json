@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/app/globals.css"
+        ],
+        "createdAt": "2026-09-28T14:30:06.648Z",
+        "reason": "nav-pill scroll-shrink replicates reference site's identical width/height/padding transition technique; fires once per scroll-threshold crossing (not per-frame), negligible real-world cost"
+      }
+    ]
+  }
+}

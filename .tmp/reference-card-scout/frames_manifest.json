@@ -1,0 +1,55 @@
+{
+  "video_path": "C:\\Users\\Akshayan\\AppData\\Local\\Packages\\Microsoft.ScreenSketch_8wekyb3d8bbwe\\TempState\\Recordings\\20260929-0909-22.8815776.mp4",
+  "output_dir": "C:\\Users\\Akshayan\\Desktop\\Miraee_Final_Landing_pag3_cinematic\\.tmp\\reference-card-scout",
+  "mode": "scout",
+  "fps_extracted": 1,
+  "scene_threshold": 0.25,
+  "max_width": 640,
+  "video_info": {
+    "duration_s": 4.866633,
+    "width": 882,
+    "height": 590,
+    "native_fps": 30.0,
+    "orientation": "landscape"
+  },
+  "contact_sheet_path": "C:\\Users\\Akshayan\\Desktop\\Miraee_Final_Landing_pag3_cinematic\\.tmp\\reference-card-scout\\contact_sheet.jpg",
+  "total_frames": 5,
+  "key_frame_count": 0,
+  "frames": [
+    {
+      "index": 0,
+      "path": ".tmp\\reference-card-scout\\frame_000001.jpg",
+      "timestamp_s": 0.0,
+      "scene_score": 0.0386,
+      "is_key_frame": false
+    },
+    {
+      "index": 1,
+      "path": ".tmp\\reference-card-scout\\frame_000002.jpg",
+      "timestamp_s": 1.0,
+      "scene_score": 0.0386,
+      "is_key_frame": false
+    },
+    {
+      "index": 2,
+      "path": ".tmp\\reference-card-scout\\frame_000003.jpg",
+      "timestamp_s": 2.0,
+      "scene_score": 0.1305,
+      "is_key_frame": false
+    },
+    {
+      "index": 3,
+      "path": ".tmp\\reference-card-scout\\frame_000004.jpg",
+      "timestamp_s": 3.0,
+      "scene_score": 0.1305,
+      "is_key_frame": false
+    },
+    {
+      "index": 4,
+      "path": ".tmp\\reference-card-scout\\frame_000005.jpg",
+      "timestamp_s": 4.0,
+      "scene_score": 0.1305,
+      "is_key_frame": false
+    }
+  ]
+}
