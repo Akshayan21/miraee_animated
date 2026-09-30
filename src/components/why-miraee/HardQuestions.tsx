@@ -14,6 +14,7 @@ export function HardQuestions() {
     const stage = section.querySelector<HTMLElement>("[data-hq-stage]");
     const cards = gsap.utils.toArray<HTMLElement>("[data-hq-card]", section);
     const progress = section.querySelector<HTMLElement>("[data-hq-progress]");
+    const glow = section.querySelector<HTMLElement>(`.${styles.glow}`);
     if (!intro || !stage || !progress || cards.length !== hardQuestions.length) return;
     const panel = section.querySelector<HTMLElement>("[data-hq-panel]");
     if (!panel) return;
@@ -32,13 +33,101 @@ export function HardQuestions() {
     const mm = gsap.matchMedia();
     mm.add({
       motion: "(prefers-reduced-motion: no-preference)",
-      desktop: "(min-width: 769px)",
+      immersive: "(min-width: 1024px)",
     }, (context) => {
       if (!context.conditions?.motion) return;
-      // Keep the copy static; only the decorative accents animate.
+
+      if (context.conditions?.immersive) {
+        gsap.fromTo(
+          intro.children,
+          { autoAlpha: 0.2, y: 54, z: -90, rotateX: 8 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            z: 0,
+            rotateX: 0,
+            stagger: 0.06,
+            ease: "none",
+            scrollTrigger: { trigger: intro, start: "top 96%", end: "top 58%", scrub: 0.65 },
+          },
+        );
+
+        cards.forEach((card, index) => {
+          const columnDirection = index % 2 === 0 ? -1 : 1;
+          const depth = 150 + (index % 3) * 45;
+          gsap.fromTo(
+            card,
+            {
+              autoAlpha: 0.08,
+              x: columnDirection * (70 + (index % 3) * 16),
+              y: 100 + (index % 2) * 24,
+              z: -depth,
+              rotateX: 12 + (index % 2) * 3,
+              rotateY: columnDirection * -9,
+              scale: 0.9,
+            },
+            {
+              autoAlpha: 1,
+              x: 0,
+              y: 0,
+              z: 0,
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 98%",
+                end: "top 56%",
+                scrub: 0.8,
+              },
+            },
+          );
+        });
+
+        if (glow) {
+          gsap.fromTo(glow, { yPercent: -10, scale: 0.82 }, {
+            yPercent: 28,
+            scale: 1.18,
+            ease: "none",
+            scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: 1.2 },
+          });
+        }
+      } else {
+        gsap.fromTo(
+          intro.children,
+          { autoAlpha: 0, y: 24 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: { trigger: intro, start: "top 84%", once: true },
+          },
+        );
+
+        cards.forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            { autoAlpha: 0, x: index % 2 === 0 ? -24 : 24, y: 34, scale: 0.98 },
+            {
+              autoAlpha: 1,
+              x: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              ease: "power3.out",
+              clearProps: "transform,opacity,visibility",
+              scrollTrigger: { trigger: card, start: "top 90%", once: true },
+            },
+          );
+        });
+      }
+
       cards.forEach((row) => {
         gsap.fromTo(row.querySelectorAll("i"), { scaleX: 0, transformOrigin: "left" }, {
-          scaleX: 1, duration: 0.25, ease: "power2.out",
+          scaleX: 1, duration: 0.45, ease: "power2.out",
           scrollTrigger: { trigger: row, start: "top 85%", once: true },
         });
       });
@@ -56,7 +145,7 @@ export function HardQuestions() {
     };
   }, { scope: root });
 
-  return <section ref={root} className={styles.section} aria-labelledby="hard-questions-title"><div className={styles.sticky} data-hq-panel>
+  return <section ref={root} data-why-scene="Objections" className={styles.section} aria-labelledby="hard-questions-title"><div className={styles.sticky} data-hq-panel>
     <div className={styles.glow} aria-hidden="true" />
     <header className={styles.intro} data-hq-intro><p>{hardQuestionsIntro.eyebrow}</p><h2 id="hard-questions-title">{hardQuestionsIntro.title}</h2><span>Six concerns. Six direct answers.</span></header>
     <div className={styles.stage} data-hq-stage>

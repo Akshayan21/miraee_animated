@@ -4,6 +4,7 @@ import { ComparisonTable } from "@/components/why-miraee/ComparisonTable";
 import { ImplementationSteps } from "@/components/why-miraee/ImplementationSteps";
 import { HardQuestions } from "@/components/why-miraee/HardQuestions";
 import { CtaSection } from "@/components/miraee/CtaSection";
+import { WhyMiraeeProgress } from "@/components/why-miraee/WhyMiraeeProgress";
 
 export const metadata: Metadata = {
   title: "Why Miraee — Same Trip, Different Operating Model",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 
 export default function WhyMiraeePage() {
   return (
-    <main>
+    <main className="overflow-x-clip">
+      <WhyMiraeeProgress />
       <WhyMiraeeHero />
       <ComparisonTable />
       <ImplementationSteps />

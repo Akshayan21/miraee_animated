@@ -49,15 +49,23 @@ export function ImplementationSteps() {
             scrub: 0.5,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-              const idx = Math.min(cards.length - 1, Math.round(self.progress * (cards.length - 1)));
+              const focus = self.progress * (cards.length - 1);
+              const idx = Math.min(cards.length - 1, Math.round(focus));
               dots.forEach((dot, i) => {
                 dot.style.opacity = i === idx ? "1" : "0.32";
                 dot.style.transform = i === idx ? "scale(1.4)" : "scale(1)";
               });
               cards.forEach((card, i) => {
-                card.style.opacity = i === idx ? "1" : "0.5";
-                card.style.transform = i === idx ? "scale(1)" : "scale(0.96)";
+                const delta = i - focus;
+                const distance = Math.abs(delta);
+                card.style.opacity = String(gsap.utils.clamp(0.38, 1, 1 - distance * 0.34));
+                card.style.transform = [
+                  `translate3d(0, ${Math.min(26, distance * 12)}px, ${-Math.min(220, distance * 120)}px)`,
+                  `rotateY(${gsap.utils.clamp(-13, 13, delta * -8)}deg)`,
+                  `scale(${Math.max(0.9, 1 - distance * 0.045)})`,
+                ].join(" ");
                 card.style.borderLeftColor = i === idx ? "var(--color-brand)" : "transparent";
+                card.style.boxShadow = i === idx ? "0 28px 58px -26px rgba(229,86,2,.38)" : "0 20px 48px -30px rgba(15,4,7,.18)";
               });
             },
           },
@@ -82,6 +90,7 @@ export function ImplementationSteps() {
           card.style.opacity = "";
           card.style.transform = "";
           card.style.borderLeftColor = "var(--color-brand)";
+          card.style.boxShadow = "";
         });
         el.style.height = "";
       });
@@ -92,11 +101,11 @@ export function ImplementationSteps() {
   );
 
   return (
-    <section ref={root} className="relative bg-paper text-ink max-md:h-auto">
+    <section ref={root} data-why-scene="Implement" className="relative bg-paper text-ink max-md:h-auto">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden max-md:static max-md:h-auto max-md:overflow-visible max-md:py-[clamp(48px,6vw,88px)]">
         <div
           ref={trackRef}
-          className="flex items-center gap-8 pl-[clamp(20px,6vw,96px)] will-change-transform max-md:flex-col max-md:items-stretch max-md:gap-8 max-md:pl-0"
+          className="flex items-center gap-8 pl-[clamp(20px,6vw,96px)] [perspective:1400px] [perspective-origin:50%_48%] [transform-style:preserve-3d] will-change-transform max-md:flex-col max-md:items-stretch max-md:gap-8 max-md:pl-0 max-md:[perspective:none]"
         >
           <div className="w-[min(480px,86vw)] flex-none max-md:mx-[clamp(20px,6vw,96px)] max-md:w-auto">
             <p className="m-0 text-[11px] font-bold uppercase tracking-[.16em] text-muted">{implementationIntro.eyebrow}</p>
@@ -112,7 +121,7 @@ export function ImplementationSteps() {
               ref={(node) => {
                 cardRefs.current[i] = node;
               }}
-              className="min-h-[280px] w-[min(440px,84vw)] flex-none border-l-2 bg-[color-mix(in_srgb,var(--color-mi-cream)_82%,white)] p-9 shadow-[0_20px_48px_-24px_rgba(15,4,7,.16)] transition-[opacity,transform,border-color] duration-300 max-md:mx-[clamp(20px,6vw,96px)] max-md:w-auto max-md:min-h-0"
+              className="min-h-[280px] w-[min(440px,84vw)] flex-none border-l-2 bg-[color-mix(in_srgb,var(--color-mi-cream)_82%,white)] p-9 shadow-[0_20px_48px_-24px_rgba(15,4,7,.16)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform max-md:mx-[clamp(20px,6vw,96px)] max-md:w-auto max-md:min-h-0 max-md:transform-none"
               style={{ borderLeftColor: i === 0 ? "var(--color-brand)" : "transparent" }}
             >
               <span className="font-mono text-[13px] font-bold text-brand">{step.index}</span>
