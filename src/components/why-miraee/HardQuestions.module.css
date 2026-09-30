@@ -6,7 +6,7 @@
 /* Keep the desktop cards in one continuous grid. The previous sticky rows
    inserted 45–65vh spacers between pairs, which made the section look broken
    on common laptop and desktop viewports. */
-.stage{display:grid;perspective:none}
+.stage{display:grid;perspective:1400px;perspective-origin:50% 35%;transform-style:preserve-3d}
 .readingRow,.rowCards{display:contents}
 .readingRow::after,.readingRow:last-child::after{display:none}
 .rowCards .card{grid-row:auto;min-height:230px}
@@ -15,6 +15,7 @@
 .rowCards .card3{grid-column:1/6}
 .rowCards .card4{grid-column:6/13}
 @media(max-width:768px){
+  .stage{perspective:none;transform-style:flat}
   .rowCards .card{grid-column:1;min-height:220px}
 }
 
@@ -22,7 +23,7 @@
 @media(min-width:1024px){
   .sticky{padding-top:36px;padding-bottom:44px}
   .intro{margin-bottom:26px}
-  .rowCards .card{min-height:0;padding:22px 26px}
+  .rowCards .card{min-height:0;padding:22px 26px;backface-visibility:hidden;transform-style:preserve-3d;will-change:transform,opacity}
   .card h3{margin-top:12px}
   .cardTop{margin-bottom:4px}
   .section[data-reading-hold]::after{content:"";display:block;height:85vh}

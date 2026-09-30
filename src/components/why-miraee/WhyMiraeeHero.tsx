@@ -51,6 +51,7 @@ const START_OFFSETS = [
 export function WhyMiraeeHero() {
   const root = useRef<HTMLElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const blobRefs = useRef<(HTMLDivElement | null)[]>([]);
   const tagRef = useRef<HTMLDivElement>(null);
   const chipRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -60,8 +61,9 @@ export function WhyMiraeeHero() {
       const el = root.current;
       const tag = tagRef.current;
       const glow = glowRef.current;
+      const scene = sceneRef.current;
       const chips = chipRefs.current.filter((c): c is HTMLDivElement => !!c);
-      if (!el || !tag || !glow || chips.length !== FRAGMENT_COUNT) return;
+      if (!el || !tag || !glow || !scene || chips.length !== FRAGMENT_COUNT) return;
 
       const targets = el.querySelectorAll<HTMLElement>("[data-reveal]");
       const blobs = blobRefs.current.filter((b): b is HTMLDivElement => !!b);
@@ -127,6 +129,23 @@ export function WhyMiraeeHero() {
           ease: "none",
           scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 },
         });
+
+        gsap.to(scene, {
+          yPercent: -10,
+          z: -160,
+          rotateX: 5,
+          scale: 0.92,
+          autoAlpha: 0.28,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.8,
+            onEnter: () => tl.pause(),
+            onEnterBack: () => tl.play(),
+          },
+        });
       });
 
       mm.add("(prefers-reduced-motion: reduce), (max-width: 899px)", () => {
@@ -140,7 +159,7 @@ export function WhyMiraeeHero() {
   );
 
   return (
-    <section ref={root} className="relative isolate overflow-hidden bg-white px-6 pt-[clamp(144px,15vw,192px)] pb-[clamp(72px,8vw,112px)] text-center text-ink sm:px-10 lg:px-16">
+    <section ref={root} data-why-scene="Framework" className="relative isolate overflow-hidden bg-white px-6 pt-[clamp(144px,15vw,192px)] pb-[clamp(72px,8vw,112px)] text-center text-ink [perspective:1400px] sm:px-10 lg:px-16">
       {/* Warm radial glow + converging rays — same treatment as
           ProductHero's hero, redone centered on this headline instead of
           reinventing a different ambient background for this page. */}
@@ -185,7 +204,7 @@ export function WhyMiraeeHero() {
         <span className="absolute size-1.5 rounded-full" style={{ top: "40%", left: "12%", background: "color-mix(in srgb, var(--color-brand) 55%, white)" }} />
       </div>
 
-      <div className="relative mx-auto w-full max-w-[1160px]">
+      <div ref={sceneRef} className="relative mx-auto w-full max-w-[1160px] [transform-style:preserve-3d] will-change-transform">
         {/* Fragmented chips: docked in their natural positions flanking
             the centered column, so on mobile/reduced-motion (no
             convergence animation) they still read as a sensible static

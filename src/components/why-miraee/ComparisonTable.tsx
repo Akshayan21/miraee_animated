@@ -83,13 +83,20 @@ export function ComparisonTable() {
               counter.textContent = `0${Math.min(TOTAL_ROWS, Math.floor(spotlight) + 1)} / 0${TOTAL_ROWS}`;
 
               rows.forEach((row, i) => {
-                const dist = Math.abs(spotlight - i);
+                const signedDist = i - spotlight;
+                const dist = Math.abs(signedDist);
                 const isActive = dist < 0.5;
                 const weight = gsap.utils.clamp(0.34, 1, 1 - dist * 0.42);
                 row.style.opacity = String(weight);
-                row.style.transform = `scale(${isActive ? 1.012 : 1})`;
+                row.style.transform = [
+                  "perspective(1200px)",
+                  `translate3d(0, ${gsap.utils.clamp(-30, 30, signedDist * 10)}px, ${-Math.min(260, dist * 105)}px)`,
+                  `rotateX(${gsap.utils.clamp(-8, 8, signedDist * -3.2)}deg)`,
+                  `scale(${isActive ? 1.018 : Math.max(0.94, 1 - dist * 0.018)})`,
+                ].join(" ");
                 row.style.background = isActive ? "color-mix(in srgb, var(--color-brand) 9%, transparent)" : "transparent";
                 row.style.borderLeftColor = isActive ? "var(--color-brand)" : "transparent";
+                row.style.boxShadow = isActive ? "0 18px 42px -24px rgba(229,86,2,.52)" : "none";
 
                 const cell = activeCells[i] ?? activeCell(row);
                 if (cell) cell.style.transform = isActive ? "scale(1.1)" : "scale(1)";
@@ -128,7 +135,7 @@ export function ComparisonTable() {
   );
 
   return (
-    <section ref={root} className="relative h-[240vh] bg-background-deep text-white max-md:h-auto max-md:bg-paper max-md:text-ink">
+    <section ref={root} data-why-scene="Compare" className="relative h-[240vh] bg-background-deep text-white max-md:h-auto max-md:bg-paper max-md:text-ink">
       <div
         className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden px-[clamp(20px,5vw,64px)] max-md:static max-md:h-auto max-md:overflow-visible max-md:px-[clamp(20px,5vw,64px)] max-md:py-[clamp(48px,6vw,88px)]"
         style={{
@@ -149,7 +156,7 @@ export function ComparisonTable() {
             </span>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-[20px] border border-white/10 max-md:mt-6 max-md:border-ink/10">
+          <div className="mt-8 overflow-hidden rounded-[20px] border border-white/10 [perspective:1200px] [transform-style:preserve-3d] max-md:mt-6 max-md:border-ink/10 max-md:[perspective:none]">
             <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] border-b border-white/10 bg-white/[0.03] max-md:border-ink/10 max-md:bg-paper">
               <div className="p-4 font-mono text-[11px] font-bold uppercase tracking-[.1em] text-white/40 max-md:text-muted">Capability</div>
               {comparisonColumns.map((col, i) => {
@@ -174,7 +181,7 @@ export function ComparisonTable() {
                 ref={(node) => {
                   rowRefs.current[i] = node;
                 }}
-                className="grid grid-cols-[1.4fr_1fr_1fr_1fr] border-b border-l-2 border-white/10 border-l-transparent transition-[background,transform] duration-300 will-change-transform last:border-b-0 max-md:border-ink/10 max-md:border-l-0"
+                className="grid grid-cols-[1.4fr_1fr_1fr_1fr] border-b border-l-2 border-white/10 border-l-transparent [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform last:border-b-0 max-md:border-ink/10 max-md:border-l-0"
               >
                 <div className="p-4 text-[14px] font-bold text-white max-md:text-ink">{row.capability}</div>
                 {row.values.map((value, colIndex) => (
