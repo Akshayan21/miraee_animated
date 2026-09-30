@@ -6,6 +6,7 @@ import { SavingsFlywheel } from "@/components/product/SavingsFlywheel";
 import { ConnectedSystems } from "@/components/product/ConnectedSystems";
 import { TabhiAdvantage } from "@/components/product/TabhiAdvantage";
 import { FaqSection } from "@/components/product/FaqSection";
+import { CtaSection } from "@/components/miraee/CtaSection";
 
 export const metadata: Metadata = {
   title: "Miraee Product — One journey, one connected experience",
@@ -22,6 +23,7 @@ export default function ProductPage() {
       <ConnectedSystems />
       <TabhiAdvantage />
       <FaqSection />
+      <CtaSection primaryHref="/request-demo" secondaryHref="/pricing" />
     </main>
   );
 }
