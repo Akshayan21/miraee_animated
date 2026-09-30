@@ -16,6 +16,7 @@ export function useMiraiScrollTimeline({ root, reducedMotion, onStageChange }: P
     if (!el || reducedMotion) return;
     const stageEls = gsap.utils.toArray<HTMLElement>('[data-gsap="journey-stage"]', el);
     const capabilityCards = gsap.utils.toArray<HTMLElement>('[data-gsap="capability-card"]', el);
+    const productVisuals = stageEls.map((stage) => stage.querySelector<HTMLElement>("[data-product-ui]"));
     gsap.set(['[data-gsap="mirai-layer"]', '[data-gsap="interactive-input"]', '[data-gsap="response-bubble"]', '[data-gsap="quick-requests"]', '[data-gsap="device-shell"]', '[data-gsap="journey-copy"]', '[data-gsap="journey-progress"]'], { autoAlpha: 0 });
     gsap.set(capabilityCards, { autoAlpha: 0, y: 24 });
     gsap.set(stageEls.slice(1), { autoAlpha: 0, y: 56, pointerEvents: "none" });
@@ -24,7 +25,16 @@ export function useMiraiScrollTimeline({ root, reducedMotion, onStageChange }: P
     mm.add("(min-width: 769px)", () => {
       const timeline = gsap.timeline({
         defaults: { ease: "none" },
-        scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 1.2, invalidateOnRefresh: true },
+        scrollTrigger: {
+          trigger: el,
+          // Hold the complete hero until the visitor has made a deliberate
+          // downward scroll. This prevents the Mirai state from being partly
+          // activated by tiny trackpad movement or the initial refresh.
+          start: "top top-=180",
+          end: "bottom bottom",
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
       });
 
       timeline
@@ -74,14 +84,17 @@ export function useMiraiScrollTimeline({ root, reducedMotion, onStageChange }: P
         .fromTo('[data-gsap="device-shell"]', { x: "0vw", y: "4vh", scale: 1.42, clipPath: "inset(42% 46% 42% 46% round 32px)", opacity: 0 }, { x: "-28vw", y: "2vh", scale: 1, clipPath: "inset(0% 0% 0% 0% round 32px)", autoAlpha: 1, duration: 1 }, 5.28)
         .to('[data-gsap="journey-copy"]', { autoAlpha: 1, x: 0, duration: 0.7 }, 5.72)
         .to('[data-gsap="journey-progress"]', { autoAlpha: 1, duration: 0.5 }, 5.9)
+        .fromTo(productVisuals[0], { y: 80, scale: 0.82, rotateX: 9, clipPath: "inset(18% 8% 18% 8% round 28px)", autoAlpha: 0 }, { y: 0, scale: 1, rotateX: 0, clipPath: "inset(0% 0% 0% 0% round 0px)", autoAlpha: 1, duration: 0.72, ease: "power3.out" }, 5.72)
         .addLabel("plan", 6.2);
 
       stageEls.forEach((stage, index) => {
         if (index === 0) return;
         const at = 6.2 + index * 0.78;
         timeline
+          .to(productVisuals[index - 1], { y: -58, scale: 1.06, rotateX: -6, autoAlpha: 0, duration: 0.28, ease: "power2.in" }, at)
           .to(stageEls[index - 1], { autoAlpha: 0, y: -42, pointerEvents: "none", duration: 0.32 }, at)
           .to(stage, { autoAlpha: 1, y: 0, pointerEvents: "auto", duration: 0.46 }, at + 0.12)
+          .fromTo(productVisuals[index], { y: 82, scale: 0.82, rotateX: 9, clipPath: "inset(18% 8% 18% 8% round 28px)", autoAlpha: 0 }, { y: 0, scale: 1, rotateX: 0, clipPath: "inset(0% 0% 0% 0% round 0px)", autoAlpha: 1, duration: 0.5, ease: "power3.out" }, at + 0.1)
           .call(() => onStageChange(journeyStages[index].id), [], at + 0.18)
           .call(() => onStageChange(journeyStages[index - 1].id), [], at - 0.02);
       });

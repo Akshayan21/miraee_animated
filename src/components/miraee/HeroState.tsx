@@ -27,7 +27,6 @@ export function HeroState() {
         <h1 className="m-0 font-display font-bold text-[clamp(52px,5.25vw,84px)] leading-[.98] tracking-[-.055em] text-balance max-md:text-[clamp(40px,11vw,58px)] max-md:leading-[1]">
           The travel &amp; expense platform that <span className="text-brand">actually does the work</span>.
         </h1>
-        <p className="max-w-[680px] mx-auto mt-7 mb-0 text-muted text-[clamp(16px,1.25vw,20px)] leading-[1.55] text-balance max-md:max-w-[480px] max-md:mt-5 max-md:text-sm">Meet Miraee. State your intent, and our AI agents search, book, pay, coordinate, recover, and file your expenses. Effortless for travelers, strictly controlled for finance, and rewarding for everyone.</p>
         <div className="flex items-center justify-center gap-5 mt-[30px] max-md:flex-col max-md:gap-4">
           <a
             href="#meet-mirai"

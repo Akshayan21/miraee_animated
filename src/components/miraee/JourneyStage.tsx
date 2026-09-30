@@ -1,4 +1,4 @@
-import { MockProductUI } from "./MockProductUI";
+import { ProductStageVisual } from "./ProductStageVisual";
 import type { JourneyStageId } from "@/data/miraiExperience";
 
 type Props = { id: JourneyStageId; label: string; message: string; index: number };
@@ -19,7 +19,7 @@ export function JourneyStage({ id, label, message, index }: Props) {
       </p>
       <h2 className="m-0 font-display text-[clamp(65px,6.4vw,106px)] leading-[.9] tracking-[-.07em] capitalize text-ink max-md:text-[68px]">{label}</h2>
       <p className="w-3/4 my-6 mb-7 text-muted text-[17px] leading-[1.5] max-md:w-full">{message}</p>
-      <MockProductUI stage={id} />
+      <ProductStageVisual stage={id} />
     </article>
   );
 }

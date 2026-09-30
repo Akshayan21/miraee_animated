@@ -1,0 +1,5 @@
+import Link from "next/link";
+
+export default function SignInPage() {
+  return <main className="grid min-h-[82svh] place-items-center bg-paper px-6 pt-28 pb-20 text-ink"><section className="w-full max-w-[460px] border border-ink/12 bg-white p-8 shadow-[0_28px_70px_-44px_rgba(69,14,20,.35)]"><p className="m-0 text-[11px] font-bold tracking-[.16em] text-brand uppercase">Miraee workspace</p><h1 className="mt-4 mb-0 font-display text-5xl font-bold tracking-[-.06em]">Welcome back.</h1><p className="mt-4 text-sm leading-6 text-muted">This is a temporary sign-in screen. Authentication can be connected when the product flow is ready.</p><label className="mt-8 block text-xs font-bold">Work email<input className="mt-2 block w-full border border-ink/16 bg-paper px-4 py-3 text-sm outline-none focus:border-brand" type="email" placeholder="you@company.com" /></label><button className="mt-4 w-full bg-brand px-5 py-3 text-sm font-bold text-white" type="button">Continue</button><Link className="mt-5 block text-center text-xs font-semibold text-muted" href="/">Return home</Link></section></main>;
+}

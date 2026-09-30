@@ -17,6 +17,7 @@ export function BusinessCaseJourney() {
     if (!root) return;
     const track = root.querySelector<HTMLElement>("[data-business-track]");
     const image = root.querySelector<HTMLElement>("[data-business-image]");
+    const platformImage = root.querySelector<HTMLElement>("[data-business-platform-image]");
     const panels = gsap.utils.toArray<HTMLElement>("[data-business-panel]", root);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!track || reduced) return;
@@ -39,6 +40,7 @@ export function BusinessCaseJourney() {
       timeline
         .to(track, { x: () => -3 * window.innerWidth, duration: 3 }, 0)
         .to(image, { xPercent: 24, scale: 1.08, duration: 1 }, 0)
+        .fromTo(platformImage, { xPercent: 18, scale: 1.08 }, { xPercent: 0, scale: 1, duration: 0.75, ease: "power2.out" }, 2.65)
         .to(panels[0].querySelector("[data-business-copy]"), { x: -80, autoAlpha: 0.2, duration: 0.6 }, 0.35);
 
       panels.slice(1).forEach((panel, index) => {
@@ -86,8 +88,8 @@ export function BusinessCaseJourney() {
               <div className="absolute inset-0 overflow-hidden bg-[#d9cec2] shadow-[0_36px_90px_-42px_rgba(69,14,20,.42)]">
                 <img
                   data-business-image
-                  src="https://miraee-final.vercel.app/assets/business-case-people-1200-lPtl9-p6.webp"
-                  alt="Three business travellers ready for their next trip"
+                  src="/product/business-case-us-team-v2.png"
+                  alt="Three U.S. business travelers moving through an airport lounge together"
                   className="h-full w-full object-cover object-center [will-change:transform]"
                 />
               </div>
@@ -111,7 +113,21 @@ export function BusinessCaseJourney() {
                 </svg>
               )}
 
-              <div data-business-copy className="relative z-10 flex h-full flex-col justify-between [will-change:transform,opacity]">
+              {index === 2 && (
+                <div className="absolute right-[5vw] top-[23vh] h-[54vh] w-[48vw] max-w-[780px] max-md:relative max-md:right-auto max-md:top-auto max-md:mt-12 max-md:h-[42vh] max-md:w-full">
+                  <div className="absolute -inset-4 translate-x-4 translate-y-4 border border-brand/25" aria-hidden="true" />
+                  <div className="absolute inset-0 overflow-hidden bg-[#d7c8b7] shadow-[0_36px_90px_-42px_rgba(69,14,20,.46)]">
+                    <img
+                      data-business-platform-image
+                      src="/product/business-personal-us-traveler-v3.png"
+                      alt="A U.S. business traveler extending her work trip into a coastal stay"
+                      className="h-full w-full object-cover object-center [will-change:transform]"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div data-business-copy className={`relative z-10 flex h-full flex-col justify-between [will-change:transform,opacity] ${index === 2 ? "w-[43vw] max-md:w-full" : ""}`}>
                 <div className="flex items-center gap-4">
                   <span className="font-mono text-[10px] tracking-[.16em] text-brand">{metric.index}</span>
                   <span className="h-px w-14 bg-brand" />
@@ -121,7 +137,7 @@ export function BusinessCaseJourney() {
                 <div className={`${index === 1 ? "ml-[12vw]" : ""} max-md:ml-0 max-md:block`}>
                   <strong
                     data-business-value
-                    className={`block origin-left font-display font-bold leading-[.74] [font-variant-numeric:tabular-nums] [will-change:transform] max-md:text-[38vw] ${index === 0 ? "text-[clamp(120px,18vw,300px)] tracking-[-.025em] text-[#d74200]" : index === 1 ? "text-[clamp(150px,23vw,360px)] tracking-[-.075em] text-[#f5f1eb]" : "text-[clamp(220px,32vw,500px)] tracking-[-.06em] text-[#d74200]"}`}
+                    className={`block origin-left font-display font-bold leading-[.74] [font-variant-numeric:tabular-nums] [will-change:transform] max-md:text-[38vw] ${index === 0 ? "text-[clamp(120px,18vw,300px)] tracking-[-.025em] text-[#d74200]" : index === 1 ? "text-[clamp(150px,23vw,360px)] tracking-[-.075em] text-[#f5f1eb]" : "text-[clamp(170px,22vw,340px)] tracking-[-.06em] text-[#d74200]"}`}
                   >
                     {metric.value}
                   </strong>
