@@ -16,7 +16,7 @@ const cards = [
     metric: "24/7",
     metricLabel: "Hands-free, always on",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=facearea&facepad=2.5&w=600&h=800&q=80",
-    color: "#d9d1ff",
+    color: "color-mix(in srgb, var(--color-brand) 13%, var(--color-mi-cream))",
     mark: "traveler",
   },
   {
@@ -31,7 +31,7 @@ const cards = [
     metric: "0",
     metricLabel: "Manual expense forms",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=facearea&facepad=2.5&w=600&h=800&q=80",
-    color: "#f0b7e8",
+    color: "color-mix(in srgb, var(--color-mi-rust) 22%, var(--color-mi-cream))",
     mark: "finance",
   },
   {
@@ -46,7 +46,7 @@ const cards = [
     metric: "20–30%",
     metricLabel: "Fare savings, validated",
     image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?auto=format&fit=facearea&facepad=2.5&w=600&h=800&q=80",
-    color: "#f6d982",
+    color: "color-mix(in srgb, var(--color-mi-amber) 45%, var(--color-mi-cream))",
     mark: "admin",
   },
   {
@@ -61,7 +61,7 @@ const cards = [
     metric: "100%",
     metricLabel: "Travelers located, always",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=2.5&w=600&h=800&q=80",
-    color: "#cfe8d3",
+    color: "color-mix(in srgb, var(--color-brand-dark) 14%, var(--color-mi-cream))",
     mark: "care",
   },
 ] as const;

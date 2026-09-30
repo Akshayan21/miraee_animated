@@ -44,7 +44,6 @@ export const experienceHighlights = [
 // tiles feel alive on scroll without any scroll-jacking that could freeze
 // the page.
 export const experienceGallery = [
-  { caption: "Balloon-filled skies", image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1400&q=70", aspect: "aspect-[4/3]", depth: 0.7 },
   { caption: "Once-in-a-trip moments", image: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&fit=crop&w=1000&q=70", aspect: "aspect-[3/4.4]", depth: -0.9 },
   { caption: "Adventures together", image: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1000&q=70", aspect: "aspect-[4/5]", depth: 1.1 },
   { caption: "Quiet moments outdoors", image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1000&q=70", aspect: "aspect-[4/3.3]", depth: -0.6 },
